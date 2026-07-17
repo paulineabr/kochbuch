@@ -256,7 +256,7 @@ const RATINGS = [{"recipe_id": "vegane-taco-bowl", "name": "Pauli", "emoji": "�
 //  FILTER STATE
 // ════════════════════════════════════════════════════════════════
 let searchTerm = "";
-let active = { meal: new Set(), cuisine: new Set(), dish: new Set() };
+let active = { meal: new Set(), cuisine: new Set(), dish_type: new Set() };
 
 const MEAL_ORDER    = ["Frühstück","Vorspeise","Mittag","Abendessen","Dessert","Snack","Beilage"];
 const CUISINE_ORDER = ["Asiatisch", "Deutsch/Europäisch", "Indisch", "International", "Japanisch", "Koreanisch", "Mediterran", "Mexikanisch", "Pakistanisch"];
@@ -325,7 +325,7 @@ function buildChips(containerId, dim, order) {
 function matches(r) {
   if (active.meal.size    && !(r.meal      || []).some(v => active.meal.has(v)))    return false;
   if (active.cuisine.size && !(r.cuisine   || []).some(v => active.cuisine.has(v))) return false;
-  if (active.dish.size    && !(r.dish_type || []).some(v => active.dish.has(v)))    return false;
+  if (active.dish_type.size && !(r.dish_type || []).some(v => active.dish_type.has(v)))    return false;
   const term = searchTerm.trim().toLowerCase();
   if (!term) return true;
   const hay = [
@@ -445,7 +445,7 @@ function closeModal() {
 }
 
 function resetAll() {
-  active = { meal: new Set(), cuisine: new Set(), dish: new Set() };
+  active = { meal: new Set(), cuisine: new Set(), dish_type: new Set() };
   searchTerm = "";
   document.getElementById("searchInput").value = "";
   buildChips("mealChips",    "meal",      MEAL_ORDER);
